@@ -320,6 +320,30 @@ public class MessageService {
 		return message;
 	}
 
+	public Message createSecurityBreach() {
+
+		this.actorService.loggedAsActor();
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+
+		Date thisMoment = new Date();
+		thisMoment.setTime(thisMoment.getTime() - 1000);
+
+		Message message = new Message();
+		Actor sender = this.actorService.getActorByUsername(userAccount.getUsername());
+		Actor receiver = new Actor();
+		message.setMoment(thisMoment);
+		message.setSubject("Error de seguridad / Security Breach");
+		message.setBody("Esto es un mensaje para informar que ha habido una brecha de seguridad // This is a message to inform about a security breach");
+		message.setPriority("");
+		message.setReceiver(receiver);
+		message.setTags("Security, Breach, Notification, Urgent, Important");
+		message.setSender(sender);
+
+		return message;
+	}
+
 	public Message create(String Subject, String body, String priority, Actor recipient) {
 
 		this.actorService.loggedAsActor();

@@ -98,4 +98,11 @@
 		<put-attribute name="body" value="/views/administrator/createAdmin.jsp" />
 	</definition>
 	
+	<definition name="broadcast/administrator/sendSecurityBreach" extends="master.page">	
+		<put-attribute name="title" value="Emitir notificacion" /> 
+		<put-attribute name="body" value="/views/administrator/broadcast.jsp" />
+	</definition>
+	
+	
+	
 </tiles-definitions>

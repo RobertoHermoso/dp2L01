@@ -141,8 +141,13 @@ public class ProcessionController extends AbstractController {
 		ModelAndView result;
 		Procession procesion;
 		procesion = this.processionService.findOne(processionId);
+		Brotherhood brother = new Brotherhood();
+		brother = this.brotherhoodService.loggedBrotherhood();
 
 		if (!procesion.getIsDraftMode())
+			return this.list();
+
+		if (!(brother.getProcessions().contains(procesion)))
 			return this.list();
 
 		FormObjectProcessionFloatCheckbox formObjectProcessionFloatCheckbox = this.processionService.prepareFormObjectProcessionFloatCheckbox(processionId);

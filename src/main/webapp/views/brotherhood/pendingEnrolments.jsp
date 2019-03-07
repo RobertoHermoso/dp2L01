@@ -28,6 +28,7 @@
 		<display:column property="creationMoment" titleKey="enrolment.moment"
 			sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
 
+	<jstl:if test="${hasArea}">
 		<display:column>
 			<spring:url var="rejectUrl"
 				value="/enrolment/brotherhood/reject.do?enrolmentId={enrolmentId}">
@@ -47,7 +48,8 @@
 					code="enrolment.assign.position" />
 			</a>
 		</display:column>
-
+	</jstl:if>
+	
 	</display:table>
 
 </security:authorize>

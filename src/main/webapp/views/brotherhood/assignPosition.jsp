@@ -27,5 +27,7 @@
 
 		<acme:submit name="save" code="enrolment.assign.position" />
 
+		<acme:cancel url="enrolment/brotherhood/list.do" code="enrolment.cancel"/>
+		
 	</form:form>
 </security:authorize>

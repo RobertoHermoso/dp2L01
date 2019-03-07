@@ -58,6 +58,30 @@ public class AdministratorBroadcastMessage extends AbstractController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "/sendSecurityBreach", method = RequestMethod.GET)
+	public ModelAndView createSecurityBreach() {
+
+		ModelAndView result;
+		Message message;
+		String locale = LocaleContextHolder.getLocale().getLanguage();
+		List<String> priorityName = new ArrayList<>();
+		List<String> priority = this.configurationService.getConfiguration().getPriorityLvl();
+
+		if (locale == "en")
+			priorityName = this.configurationService.getConfiguration().getPriorityLvl();
+		else if (locale == "es")
+			priorityName = this.configurationService.getConfiguration().getPriorityLvlSpa();
+
+		message = this.messageService.createSecurityBreach();
+		result = new ModelAndView("broadcast/administrator/send");
+		result.addObject("messageSend", message);
+		result.addObject("priority", priority);
+		result.addObject("priorityName", priorityName);
+
+		return result;
+	}
+
 	//Save
 	@RequestMapping(value = "/send", method = RequestMethod.POST, params = "send")
 	public ModelAndView send(@ModelAttribute("messageSend") Message message, BindingResult binding) {
@@ -88,9 +112,19 @@ public class AdministratorBroadcastMessage extends AbstractController {
 	protected ModelAndView createEditModelAndView(Message message, String messageCode) {
 		ModelAndView result;
 
+		String locale = LocaleContextHolder.getLocale().getLanguage();
+		List<String> priorityName = new ArrayList<>();
+		List<String> priority = this.configurationService.getConfiguration().getPriorityLvl();
+
+		if (locale == "en")
+			priorityName = this.configurationService.getConfiguration().getPriorityLvl();
+		else if (locale == "es")
+			priorityName = this.configurationService.getConfiguration().getPriorityLvlSpa();
+
 		result = new ModelAndView("broadcast/administrator/send");
 		result.addObject("messageSend", message);
-		result.addObject("priority", this.configurationService.getConfiguration().getPriorityLvl());
+		result.addObject("priority", priority);
+		result.addObject("priorityName", priorityName);
 		result.addObject("message", messageCode);
 
 		return result;

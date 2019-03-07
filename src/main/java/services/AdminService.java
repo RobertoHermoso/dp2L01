@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -574,6 +575,10 @@ public class AdminService {
 		if (message.getId() == 0) {
 			result = message;
 			result.setSender(actor);
+			Date thisMoment = new Date();
+			thisMoment.setTime(thisMoment.getTime() - 1000);
+			result.setMoment(thisMoment);
+			result.setReceiver(actor);
 
 		} else {
 			result = this.messageService.findOne(message.getId());
@@ -583,9 +588,11 @@ public class AdminService {
 			result.setTags(message.getTags());
 			result.setSubject(message.getSubject());
 			result.setReceiver(actor);
+			result.setSender(actor);
+
 		}
 
-		//this.validator.validate(result, binding);
+		this.validator.validate(result, binding);
 
 		return result;
 

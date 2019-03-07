@@ -50,10 +50,16 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		List<Enrolment> enrolments = new ArrayList<Enrolment>();
 		enrolments = this.brotherhoodService.getPengingEnrolments();
+		this.brotherhoodService.loggedAsBrotherhood();
+
+		Brotherhood loggedBrotherhood = this.brotherhoodService.loggedBrotherhood();
+
+		Boolean hasArea = !(loggedBrotherhood.getArea() == null);
 
 		result = new ModelAndView("enrolment/brotherhood/list");
 
 		result.addObject("enrolments", enrolments);
+		result.addObject("hasArea", hasArea);
 		result.addObject("requestURI", "enrolment/brotherhood/list.do");
 		return result;
 	}
