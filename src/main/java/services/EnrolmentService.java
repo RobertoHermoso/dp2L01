@@ -121,7 +121,11 @@ public class EnrolmentService {
 		//result.setId(enrolment.getId());
 		//result.setVersion(enrolment.getVersion());
 		result.setPosition(enrolment.getPosition());
-		result.setStatusEnrolment(StatusEnrolment.ACCEPTED);
+
+		if (result.getPosition() == null)
+			result.setStatusEnrolment(StatusEnrolment.PENDING);
+		else
+			result.setStatusEnrolment(StatusEnrolment.ACCEPTED);
 
 		this.validator.validate(result, binding);
 

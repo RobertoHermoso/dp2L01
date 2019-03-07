@@ -65,6 +65,9 @@ public class AdminService {
 	@Autowired
 	private FinderService		finderService;
 
+	@Autowired
+	private MemberService		memberService;
+
 
 	// 1. Create user accounts for new administrators.
 	public void loggedAsAdmin() {
@@ -381,10 +384,19 @@ public class AdminService {
 		this.finderService.updateAllFinders();
 
 		List<Float> statistics = new ArrayList<Float>();
-		statistics.add(this.adminRepository.avgMembersPerBrotherhood());
-		statistics.add(this.minMembersBrotherhood());
-		statistics.add(this.maxMembersBrotherhood());
-		statistics.add(this.adminRepository.stddevMembersPerBrotherhood());
+
+		if (this.memberService.findAll().isEmpty()) {
+			statistics.add((float) 0);
+			statistics.add((float) 0);
+			statistics.add((float) 0);
+			statistics.add((float) 0);
+
+		} else {
+			statistics.add(this.adminRepository.avgMembersPerBrotherhood());
+			statistics.add(this.minMembersBrotherhood());
+			statistics.add(this.maxMembersBrotherhood());
+			statistics.add(this.adminRepository.stddevMembersPerBrotherhood());
+		}
 
 		if (this.requestService.findAll().isEmpty()) {
 			statistics.add((float) 0);
@@ -421,8 +433,15 @@ public class AdminService {
 		statistics.add(this.adminRepository.getRatioSpammers());
 		statistics.add(this.adminRepository.getRatioNonSpammers());
 		statistics.add(this.adminRepository.avgAdminPolarity() + 1);
-		statistics.add(this.adminRepository.avgMemberPolarity() + 1);
-		statistics.add(this.adminRepository.avgBrotherhoodPolarity() + 1);
+		if (this.adminRepository.avgMemberPolarity() == null)
+			statistics.add((float) 0);
+		else
+			statistics.add(this.adminRepository.avgMemberPolarity() + 1);
+
+		if (this.adminRepository.avgBrotherhoodPolarity() == null)
+			statistics.add((float) 0);
+		else
+			statistics.add(this.adminRepository.avgBrotherhoodPolarity() + 1);
 
 		return statistics;
 	}

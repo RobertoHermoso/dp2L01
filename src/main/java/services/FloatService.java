@@ -42,9 +42,15 @@ public class FloatService {
 		if (floatt.getId() == 0)
 			result = floatt;
 		else {
-			result = this.floatRepository.findOne(floatt.getId());
+			domain.Float copy = this.floatRepository.findOne(floatt.getId());
 
-			result = floatt;
+			result.setId(copy.getId());
+			result.setVersion(copy.getVersion());
+			result.setPictures(copy.getPictures());
+			result.setDescription(floatt.getDescription());
+			result.setTitle(floatt.getTitle());
+
+			//result = floatt;
 
 			//result.setPictures(floatt.getPictures());
 

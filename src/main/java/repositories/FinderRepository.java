@@ -14,7 +14,7 @@ import domain.Procession;
 @Repository
 public interface FinderRepository extends JpaRepository<Finder, Integer> {
 
-	@Query("select p from Procession p where p.isDraftMode='FALSE'")
+	@Query("select p from Procession p where p.isDraftMode=FALSE")
 	public List<Procession> getPublushedProcessions();
 
 	@Query("select p from Procession p where p.title like ?1 or p.description like ?1")

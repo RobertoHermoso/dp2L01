@@ -14,6 +14,14 @@
 </p>
 
 <security:authorize access="hasRole('BROTHERHOOD')">
+	
+	<jstl:if test="${!hasArea}">
+		<h2> 
+			<font color="red"> 
+				<spring:message code="brotherhood.select.Area" /> 
+			</font> 
+		</h2>
+	</jstl:if>
 
 	<display:table pagesize="5" name="enrolments" id="row"
 		class="displaytag" requestURI="enrolment/brotherhood/list.do">
@@ -49,6 +57,9 @@
 			</a>
 		</display:column>
 	</jstl:if>
+	
+	
+	
 	
 	</display:table>
 

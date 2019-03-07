@@ -101,6 +101,9 @@ public class RequestBrotherhoodController extends AbstractController {
 		Request request = this.requestService.findOne(requestId);
 		Procession procession = request.getProcession();
 
+		if (!brotherhood.getProcessions().contains(procession))
+			return this.requestsList();
+
 		if (request.getId() != 0) {
 			Collection<Request> requests = this.requestService.getRequestApprovedByBrotherhoodAndProcession(brotherhood, request.getProcession());
 

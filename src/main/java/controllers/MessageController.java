@@ -162,7 +162,7 @@ public class MessageController extends AbstractController {
 
 		message = this.messageService.reconstruct(message, binding);
 
-		if (!(userAccount.getUsername().equals(message.getSender().getUserAccount().getUsername())))
+		if (!(userAccount.getUsername().equals(message.getSender().getUserAccount().getUsername()) || userAccount.getUsername().equals(message.getReceiver().getUserAccount().getUsername())))
 			return new ModelAndView("redirect:list.do?boxId=" + box.getId());
 
 		try {
